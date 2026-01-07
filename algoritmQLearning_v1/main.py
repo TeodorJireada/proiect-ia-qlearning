@@ -30,8 +30,6 @@ def get_state(state_real: List):
     x_real = state_real[0]
     theta_real = state_real[2]
 
-    #scadem 1 pentru a avea indecsi de la 0
-
     index_x = np.digitize(x_real, bins_x)
     index_theta = np.digitize(theta_real, bins_theta)
 
@@ -225,6 +223,6 @@ def update(frame):
     return cart, hammer_handle, hammer_head, info_text
 
 
-# Pornire Animație
+# pornire animatie
 ani = animation.FuncAnimation(fig, update, frames=None, interval=20, blit=False)
 plt.show()
