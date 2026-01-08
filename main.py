@@ -13,15 +13,26 @@ from environment import HammerEnvironment
 from agent import QLearningAgent
 
 class InvertedPendulumApp:
+    """
+     Clasa principala a aplicatiei.
+     Se ocupa de:
+     - rularea simularii
+     - legatura dintre agent si mediu
+     - afisarea grafica folosind matplotlib
+     """
     def __init__(self):
-
+        # initializam mediul (fizica) si agentul Q-learning
         self.env = HammerEnvironment()
         self.agent = QLearningAgent()
-        
+
+        # state_real = starea continua din mediu
+        # state_disc = starea discretizata folosita de agent
         self.state_real = self.env.reset()
         self.state_disc = self.agent.get_state_index(self.state_real)
         self.steps_survived = 0
         self.max_steps = 0
+        # simulation_speed controleaza cate step-uri se fac pe un frame
+        # valoare mai mare = antrenare mai rapida
         self.simulation_speed = 1
         
         self.initial_episodes = self.agent.episode_count

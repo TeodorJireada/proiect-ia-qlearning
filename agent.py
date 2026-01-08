@@ -8,7 +8,14 @@ BINS_THETA = np.linspace(-0.25, 0.25, 12)
 BINS_THETA_DOT = np.linspace(-3.0, 3.0, 12)
 
 class QLearningAgent:
+    """
+       Agent Q-learning simplu.
+       Foloseste o Q-table si o politica epsilon-greedy.
+       """
     def __init__(self):
+        # alpha = learning rate
+        # gamma = discount factor
+        # epsilon = probabilitatea de explorare
         self.alpha = 0.1         
         self.gamma = 0.99          
         self.epsilon_start = 1.0
@@ -25,6 +32,10 @@ class QLearningAgent:
         self.load_model()
 
     def get_state_index(self, state_vector):
+        """
+           Transforma starea continua in indici discreti
+           care pot fi folositi in Q-table.
+           """
         x, x_dot, theta, theta_dot = state_vector
         idx_x = np.digitize(x, BINS_X)
         idx_x_dot = np.digitize(x_dot, BINS_X_DOT)
@@ -33,6 +44,11 @@ class QLearningAgent:
         return (idx_x, idx_x_dot, idx_theta, idx_theta_dot)
 
     def get_action(self, state_disc):
+        """
+        Alege o actiune folosind epsilon-greedy:
+        - explorare cu probabilitatea epsilon
+        - altfel, cea mai buna actiune cunoscuta
+        """
         if self.is_training and np.random.random() < self.epsilon:
             return np.random.randint(0, 2)
         else:

@@ -2,6 +2,10 @@ import numpy as np
 import math
 
 class HammerEnvironment:
+    """
+       Mediu inspirat din problema CartPole.
+       Simuleaza miscarea unui carucior cu un pendul atasat.
+       """
     def __init__(self):
         self.gravity = 9.8
         self.mass_cart = 1.0
@@ -19,10 +23,20 @@ class HammerEnvironment:
         self.reset()
 
     def reset(self):
+        """
+          Reseteaza mediul si genereaza o stare initiala mica random,
+          pentru a evita cazurile perfecte.
+          """
         self.state = np.random.uniform(low=-0.05, high=0.05, size=(4,))
         return self.state
 
     def step(self, action):
+        """
+            Executa un pas de simulare:
+            - aplica forta stanga sau dreapta
+            - calculeaza noua stare folosind ecuatii fizice
+            - verifica daca episodul s-a terminat
+            """
         x, x_dot, theta, theta_dot = self.state
         
         force = self.force_mag if action == 1 else -self.force_mag
